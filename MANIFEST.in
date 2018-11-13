@@ -1,0 +1,5 @@
+include LICENSE
+graft xyapi/static
+graft xyapi/templates
+graft tests
+global-exclude *.pyc
