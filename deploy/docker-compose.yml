@@ -19,5 +19,4 @@ services:
       - ..:/usr/local/xyapi_ws
       - /media/data:/media/data
       - ./xyapi.conf:/etc/supervisor/conf.d/xyapi.conf
-      - ../log:/var/log/sinyi
     
