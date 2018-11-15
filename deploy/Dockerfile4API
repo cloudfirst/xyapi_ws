@@ -1,0 +1,36 @@
+FROM python:3.6-alpine
+ RUN apt-get update && \
+    apt-get install -y apt-transport-https && \
+    echo "deb https://notesalexp.org/tesseract-ocr/stretch/ stretch main" >> /etc/apt/sources.list && \
+    wget -O - https://notesalexp.org/debian/alexp_key.asc | apt-key add - && \
+    apt-get update && \
+    apt-get install -y build-essential cmake unzip pkg-config python3-dev \
+                       libjpeg-dev libpng-dev libtiff-dev libavcodec-dev \
+                       libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev \
+                       tesseract-ocr && \
+    rm /var/lib/apt/lists/* -rf
+ RUN pip install numpy pillow pytesseract imutils
+ ARG OPENCV_VERSION=4.0.0-alpha
+RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.zip && \
+    wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/${OPENCV_VERSION}.zip && \
+    unzip opencv.zip && mv opencv-${OPENCV_VERSION} opencv && rm opencv.zip && \
+    unzip opencv_contrib.zip && mv opencv_contrib-${OPENCV_VERSION} opencv_contrib && rm opencv_contrib.zip
+ RUN mkdir opencv/build && \
+    cd opencv/build && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+      -D CMAKE_INSTALL_PREFIX=/usr/local \
+      -D INSTALL_PYTHON_EXAMPLES=ON \
+      -D INSTALL_C_EXAMPLES=OFF \
+      -D OPENCV_EXTRA_MODULES_PATH=/opencv_contrib/modules \
+      -D PYTHON_EXECUTABLE=/usr/local/bin/python \
+      -D BUILD_EXAMPLES=ON \
+      .. && \
+    make -j4 && \
+    make install && \
+    ldconfig && \
+    cd /opencv && rm build/* -rf
+ RUN pip install numpy pillow pytesseract imutils mahotas matplotlib pymupdf pdf2image
+ RUN useradd -m dev && \
+    mkdir /code && \
+    chown dev:dev /code -R
+USER dev
