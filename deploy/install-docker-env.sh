@@ -24,3 +24,17 @@ sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-c
 sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 
+# prepare host directory for container
+sudo mkdir -p /var/log/sinyi
+sudo chown -R $USER:$USER /var/log/sinyi
+sudo chmod -R 755 /media/data 
+
+sudo apt-get install cifs-utils
+sudo mkdir -p /media/data
+sudo chown -R $USER:$USER /media/data
+sudo chmod -R 755 /media/data 
+#### test mount 
+#### sudo mount -t cifs -o username=administrator,password=password123\!\#,uid=$USER,gid=$USER //192.168.96.136/Users/Administrator/Documents/xypdf  /media/data
+#### echo "//192.168.96.136/Users/Administrator/Documents/xypdf /media/data cifs username=administrator,password=password123!# 0 0" >> /etc/fstab
+
+
