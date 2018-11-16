@@ -14,11 +14,13 @@ RUN pip install -r requirements.txt
 
 # create USER sinobot and needed directories
 RUN useradd -m sinobot
-RUN mkdir -p /usr/local/xyapi_ws && \
-    mkdir -p /media/data && \
-    mkdir -p /var/log/sinyi 
-RUN chown -R $USER:$USER /usr/local/xyapi_ws && \
-    chown -R $USER:$USER /var/log/sinyi
+RUN mkdir -p /usr/local/xyapi_ws || true && \
+    mkdir -p /media/data || true && \
+    mkdir -p /var/log/sinyi || true
+RUN chown -R sinobot:sinobot /usr/local/xyapi_ws && \
+    chmod 755 /usr/local/xyapi_ws && \
+    chown -R sinobot:sinobot /var/log/sinyi && \
+    chmod 755 -R 
 
 # install OpenCV 4.0
 
