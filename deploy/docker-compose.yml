@@ -8,8 +8,10 @@ services:
       - sinyi_api
     restart: always
     image: sinyi_web:latest
+    container_name: sinyi_web_instance
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./nginx_default:/etc/nginx/conf.d/default
   sinyi_api:
@@ -18,10 +20,10 @@ services:
       dockerfile: Dockerfile4API
     restart: always
     image: sinyi_api:latest
-    ports:
-      - "5000:5000"
+    container_name: sinyi_api_instance
+    expose:
+      - "5000"
     volumes:
       - ..:/usr/local/xyapi_ws
       - /media/data:/media/data
       - ./xyapi.conf:/etc/supervisor/conf.d/xyapi.conf
-    

@@ -27,7 +27,7 @@ RUN chown -R sinobot:sinobot /usr/local/xyapi_ws && \
 # install Tesseract 4.0
 
 # install supervisor for managing flask app daemon
-RUN apt-get -y install supervisor
+RUN apt-get -y install supervisor iputils-ping
 RUN rm -rf /var/lib/apt/lists/* && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
 
@@ -38,3 +38,6 @@ WORKDIR /etc/supervisor/conf.d
 
 # Define default command.
 CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+
+# Expose ports.
+EXPOSE 5000
