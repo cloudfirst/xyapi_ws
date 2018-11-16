@@ -1,13 +1,21 @@
+daemon off;
+
 http {
   server {
-    server_name sinobot;
+    listen 80;
+    access_log /var/log/nginx/access.log
 
+    upstream app_servers {
+        server sinyi_api:5000;
+    }
+    
     location / {
-      proxy_pass http://sinyi_api:5000;
+      proxy_pass http://app_servers;
       proxy_redirect off;
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header   X-Forwarded-Host $server_name;
     }
   }
 }

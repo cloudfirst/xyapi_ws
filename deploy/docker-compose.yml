@@ -21,6 +21,8 @@ services:
     restart: always
     image: sinyi_api:latest
     container_name: sinyi_api_instance
+    ports:
+      - "5000:5000"
     expose:
       - "5000"
     volumes:
