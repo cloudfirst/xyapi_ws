@@ -18,9 +18,9 @@ RUN mkdir -p /usr/local/xyapi_ws || true && \
     mkdir -p /media/data || true && \
     mkdir -p /var/log/sinyi || true
 RUN chown -R sinobot:sinobot /usr/local/xyapi_ws && \
-    chmod 755 /usr/local/xyapi_ws && \
+    chmod 755 -R /usr/local/xyapi_ws && \
     chown -R sinobot:sinobot /var/log/sinyi && \
-    chmod 755 -R 
+    chmod 755 -R /var/log/sinyi
 
 # install OpenCV 4.0
 
