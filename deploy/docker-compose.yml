@@ -6,19 +6,16 @@ services:
       dockerfile: Dockerfile4WEB
     depends_on:
       - sinyi_api
-    restart: always
     image: sinyi_web:latest
     container_name: sinyi_web_instance
     ports:
       - "80:80"
-      - "443:443"
     volumes:
-      - ./nginx_default:/etc/nginx/conf.d/default
+      - ./nginx_default:/etc/nginx/conf.d/default.conf
   sinyi_api:
     build:
       context: ./
       dockerfile: Dockerfile4API
-    restart: always
     image: sinyi_api:latest
     container_name: sinyi_api_instance
     ports:

@@ -1,5 +1,3 @@
-daemon off;
-
 http {
   server {
     listen 80;

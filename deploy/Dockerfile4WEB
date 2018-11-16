@@ -3,9 +3,9 @@ FROM ubuntu:18.04
 # Install Nginx.
 RUN \
   apt-get update && \
-  apt-get install -y nginx  iputils-ping && \
+  apt-get install -y nginx iputils-ping && \
   rm -rf /var/lib/apt/lists/* && \
-  rm /etc/nginx/nginx.conf && \
+  echo "\ndaemon off;" >> /etc/nginx/nginx.conf && \
   chown -R www-data:www-data /var/lib/nginx
 
 # Define mountable directories.
@@ -19,6 +19,5 @@ CMD ["nginx"]
 
 # Expose ports.
 EXPOSE 80
-# EXPOSE 443
 
 

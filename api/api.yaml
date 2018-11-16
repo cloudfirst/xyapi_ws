@@ -1,0 +1,67 @@
+swagger: '2.0'
+info:
+  description: XY Project Web API
+  version: 1.0.0
+  title: XY Project Web API
+  contact:
+    email: thomas.li@sinobot.com.cn
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+paths:
+  /api/1.0/get/data:
+    post:
+      summary: get the data of "合计" and "主体构造"
+      description: |
+        By input the data file, you can read the data of "合计" and "主体构造"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+      - application/json
+      parameters:
+      - in: formData
+        name: datafile
+        description: the pdf filename to be processed
+        required: true
+        type: string
+      responses:
+        200:
+          description: successfully get the data 
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/xydata'
+        400:
+          description: bad input parameter
+definitions:
+  xydata:
+    type: object
+    required:
+    - filename
+    - heji
+    - ztgz
+    - confident
+    properties:
+      filename:
+        type: string
+        example: "001.pdf"
+      heji:
+        type: string
+        example: "123.44"
+      ztgz:
+        type: string
+        example: "钢筋混泥土"
+      confident:
+        type: number
+        example: 0.8
+
+# schemes:
+#  - http
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /xyprojecct/xyproject/1.0.0
+schemes:
+ - https
+ - http
