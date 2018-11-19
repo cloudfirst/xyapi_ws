@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 
 # install Python3 
 RUN apt-get update \
-  && apt-get install -y python3-pip python3-dev \
+  && apt-get install -y python3-pip python3-dev wget \
   && cd /usr/local/bin \
   && ln -s /usr/bin/python3 python \
   && pip3 install --upgrade pip
@@ -23,11 +23,40 @@ RUN chown -R sinobot:sinobot /usr/local/xyapi_ws && \
     chmod 755 -R /var/log/sinyi
 
 # install OpenCV 4.0
+RUN apt-get install -y build-essential cmake unzip pkg-config
+RUN apt-get install -y libjpeg-dev libpng-dev libtiff-dev
+RUN apt-get install -y libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+RUN apt-get install -y libxvidcore-dev libx264-dev
+RUN apt-get install -y libatlas-base-dev gfortran
+RUN apt-get install -y python3-dev
+RUN cd /tmp && wget -O opencv.zip https://github.com/opencv/opencv/archive/4.0.0.zip
+RUN cd /tmp && wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.0.0.zip
+RUN cd /tmp && \
+    unzip opencv.zip && unzip opencv_contrib.zip && \
+    mv opencv-4.0.0 opencv && mv opencv_contrib-4.0.0 opencv_contrib && \ 
+RUN pip install numpy
+RUN cd /tmp/opencv && mkdir build && cd build && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+      -D CMAKE_INSTALL_PREFIX=/usr/local \
+      -D INSTALL_PYTHON_EXAMPLES=ON \
+      -D INSTALL_C_EXAMPLES=OFF \
+      -D OPENCV_EXTRA_MODULES_PATH=/tmp/opencv_contrib/modules \
+      -D PYTHON_EXECUTABLE=/usr/bin/python \
+      -D BUILD_EXAMPLES=ON .. && \
+    make -j4 && \
+    make install && \
+    ldconfig
 
 # install Tesseract 4.0
+RUN apt-get install -y tesseract-ocr
+
+# install all required python libs
+COPY requirements.txt /tmp/
+WORKDIR /tmp
+RUN pip install -r requirements.txt
 
 # install supervisor for managing flask app daemon
-RUN apt-get -y install supervisor iputils-ping
+RUN apt-get install -y supervisor iputils-ping
 RUN rm -rf /var/lib/apt/lists/* && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
 

@@ -1,2 +1,12 @@
 Flask               
 gunicorn
+imutils
+numpy
+math
+collections
+matplotlib
+scipy
+fitz
+pdf2image
+PIL
+pytesseract
