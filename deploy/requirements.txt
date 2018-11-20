@@ -2,10 +2,9 @@ Flask
 gunicorn
 imutils
 numpy
-collections
 matplotlib
 scipy
 fitz
 pdf2image
-PIL
+Pillow
 pytesseract
