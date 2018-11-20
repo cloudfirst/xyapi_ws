@@ -34,7 +34,7 @@ def get_data_from_pdf():
             ret['Status']    = "OK"
             ret['ErrDesc']   = ""
         else:
-            abort(400, "invalid file name: %s." % file_name)
+            # abort(400, "invalid file name: %s." % file_name)
             # start to process
             ret['filename']  = file_name
             ret['heji1']     = ''
@@ -44,6 +44,6 @@ def get_data_from_pdf():
             ret['Status']    = "FAIL"
             ret['ErrDesc']   = "invalid file name: %s." % file_name
         
-        return jsonify(results=ret)
+        return jsonify(ret)
 
     
