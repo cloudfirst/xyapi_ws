@@ -8,12 +8,12 @@
 
 #### install Docker
 sudo apt update
-sudo apt install apt-transport-https ca-certificates curl software-properties-common
+sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 sudo apt update
 apt-cache policy docker-ce
-sudo apt install docker-ce
+sudo apt install -y docker-ce
 sudo usermod -aG docker $USER
 # verfiy docker info
 docker version
@@ -29,7 +29,7 @@ sudo mkdir -p /var/log/sinyi
 sudo chown -R $USER:$USER /var/log/sinyi
 sudo chmod -R 755 /media/data 
 
-sudo apt-get install cifs-utils
+sudo apt-get install -y cifs-utils
 sudo mkdir -p /media/data
 sudo chown -R $USER:$USER /media/data
 sudo chmod -R 755 /media/data 
