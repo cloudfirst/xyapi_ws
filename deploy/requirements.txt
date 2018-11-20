@@ -2,7 +2,6 @@ Flask
 gunicorn
 imutils
 numpy
-math
 collections
 matplotlib
 scipy
