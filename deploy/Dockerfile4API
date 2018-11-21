@@ -36,11 +36,13 @@ RUN cd /tmp/opencv/build && \
       -D INSTALL_PYTHON_EXAMPLES=ON \
       -D INSTALL_C_EXAMPLES=OFF \
       -D OPENCV_EXTRA_MODULES_PATH=/tmp/opencv_contrib/modules \
-      -D PYTHON_EXECUTABLE=/usr/bin/python \
+      -D PYTHON_EXECUTABLE=/usr/local/bin/python \
       -D BUILD_EXAMPLES=ON .. 
 RUN cd /tmp/opencv/build && make -j4 
 RUN cd /tmp/opencv/build && make install
 RUN cd /tmp/opencv/build && ldconfig
+RUN cd /usr/local/lib/python3.6/dist-packages && \
+    ln -s /usr/local/python/cv2/python-3.6/cv2.cpython-36m-x86_64-linux-gnu.so cv2.so
 
 # install Tesseract 4.0
 RUN apt-get install -y tesseract-ocr
