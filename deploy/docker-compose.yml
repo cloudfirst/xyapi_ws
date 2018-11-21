@@ -22,6 +22,8 @@ services:
     expose:
       - "5000"
     volumes:
+      - ../../XinYiRecognition:/usr/local/XinYiRecognition
       - ..:/usr/local/xyapi_ws
       - /media/data:/media/data
       - ./xyapi.conf:/etc/supervisor/conf.d/xyapi.conf
+      # - ./chi_xy.traineddata:/usr/share/tesseract-ocr/4.00/tessdata/chi_xy.traineddata
