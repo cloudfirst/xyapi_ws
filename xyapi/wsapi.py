@@ -8,6 +8,7 @@ from flask import (
 from werkzeug.exceptions import abort
 from sinobotocr.cv2_helper import *
 from sinobotocr.tesseract_helper import *
+from sinobotocr.my_pdf2img import *
 
 bp = Blueprint('wsapi', __name__, url_prefix='/api/1.0')
 
