@@ -24,7 +24,7 @@ def ocr_pdf(file_path):
     ret = {}
     try:    
         # start to process
-        logger.error("Get image from pdf from %s" % r_f_p)
+        logger.error("Get image from pdf from %s" % file_path)
         dest_file = getImageFromPDF(file_path)
 
         logger.error("step_1_pre_processing_image ...")
