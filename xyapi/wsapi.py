@@ -26,10 +26,21 @@ def get_data_from_pdf():
         name, extention = os.path.splitext(file_name) 
         if extention == ".pdf" and os.path.exists(full_path):
             # start to process
+            dest_file = getImageFromPDF(full_path)
+            orig, canny = step_1_pre_processing_image(dest_file)
+            table       = step_2_location_table(orig, canny)
+            text_blocks = step_3_find_text_lines(table, name)
+            areas, ztgz = step_4_read_keyword_and_value(text_blocks, name)
+
+            # construct result
             ret['filename']  = file_name
-            ret['heji1']     = '123.45'
-            ret['heji2']     = '34.56'
-            ret['ztgz']      = u"鋼筋混凝土造"
+            if len(areas) == 2:
+                ret['heji1'] = areas[0]
+                ret['heji2'] = areas[1]
+            else:
+                ret['heji1'] = "0.0"
+                ret['heji2'] = "0.0"
+            ret['ztgz']      = ztgz
             ret['confident'] = 0.8
             ret['Status']    = "OK"
             ret['ErrDesc']   = ""
