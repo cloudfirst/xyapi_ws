@@ -17,6 +17,34 @@ BASE_DIR = "/media/data"
 def load_logged_in_user():
     pass
 
+def ocr_pdf(file_path):
+    ret = {}
+    try:    
+         # start to process
+        dest_file = getImageFromPDF(full_path)
+        orig, canny = step_1_pre_processing_image(dest_file)
+        table       = step_2_location_table(orig, canny)
+        text_blocks = step_3_find_text_lines(table, name)
+        areas, ztgz = step_4_read_keyword_and_value(text_blocks, name)
+
+        # construct result
+        ret['filename']  = file_name
+        if len(areas) == 2:
+            ret['heji1'] = areas[0]
+            ret['heji2'] = areas[1]
+        else:
+            ret['heji1'] = "0.0"
+            ret['heji2'] = "0.0"
+        ret['ztgz']      = ztgz
+        ret['confident'] = 0.8
+        ret['Status']    = "OK"
+        ret['ErrDesc']   = ""
+    except Exception as e:
+        ret['ErrDesc']   = str(e)
+        ret['Status']    = "FAIL"
+
+    return ret
+
 @bp.route('/get/data', methods=['POST'])
 def get_data_from_pdf():
     if request.method == 'POST':
@@ -25,25 +53,7 @@ def get_data_from_pdf():
         full_path = os.path.join(BASE_DIR, file_name) 
         name, extention = os.path.splitext(file_name) 
         if extention == ".pdf" and os.path.exists(full_path):
-            # start to process
-            dest_file = getImageFromPDF(full_path)
-            orig, canny = step_1_pre_processing_image(dest_file)
-            table       = step_2_location_table(orig, canny)
-            text_blocks = step_3_find_text_lines(table, name)
-            areas, ztgz = step_4_read_keyword_and_value(text_blocks, name)
-
-            # construct result
-            ret['filename']  = file_name
-            if len(areas) == 2:
-                ret['heji1'] = areas[0]
-                ret['heji2'] = areas[1]
-            else:
-                ret['heji1'] = "0.0"
-                ret['heji2'] = "0.0"
-            ret['ztgz']      = ztgz
-            ret['confident'] = 0.8
-            ret['Status']    = "OK"
-            ret['ErrDesc']   = ""
+           ret = ocr_pdf(full_path)
         else:
             # abort(400, "invalid file name: %s." % file_name)
             # start to process
