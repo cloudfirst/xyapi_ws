@@ -26,4 +26,4 @@ services:
       - ..:/usr/local/xyapi_ws
       - /media/data:/media/data
       - ./xyapi.conf:/etc/supervisor/conf.d/xyapi.conf
-      # - ./chi_xy.traineddata:/usr/share/tesseract-ocr/4.00/tessdata/chi_xy.traineddata
+      - ./chi_xy_hanzi.traineddata:/usr/share/tesseract-ocr/4.00/tessdata/chi_xy_hanzi.traineddata
