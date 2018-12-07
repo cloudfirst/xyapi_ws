@@ -19,12 +19,12 @@ RUN chown -R sinobot:sinobot /usr/local/xyapi_ws && \
 
 # install OpenCV 4.0
 RUN apt-get install -y build-essential cmake unzip pkg-config
-RUN apt-get install -y poppler-utils poppler-data
 RUN apt-get install -y libjpeg-dev libpng-dev libtiff-dev
 RUN apt-get install -y libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
 RUN apt-get install -y libxvidcore-dev libx264-dev
 RUN apt-get install -y libatlas-base-dev gfortran
 RUN apt-get install -y python3-dev
+RUN apt-get install -y poppler-utils poppler-data
 RUN cd /tmp && wget -O opencv.zip https://github.com/opencv/opencv/archive/4.0.0.zip
 RUN cd /tmp && wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.0.0.zip
 RUN cd /tmp && unzip opencv.zip && unzip opencv_contrib.zip
