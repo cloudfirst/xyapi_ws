@@ -10,6 +10,8 @@ from sinobotocr.cv2_helper import *
 from sinobotocr.tesseract_helper import *
 from sinobotocr.my_pdf2img import *
 
+logger = get_my_logger()
+
 bp = Blueprint('wsapi', __name__, url_prefix='/api/1.0')
 
 BASE_DIR = "/media/data"
@@ -21,11 +23,20 @@ def load_logged_in_user():
 def ocr_pdf(file_path):
     ret = {}
     try:    
-         # start to process
+        # start to process
+        logger.error("Get image from pdf from %s" % r_f_p)
         dest_file = getImageFromPDF(file_path)
+
+        logger.error("step_1_pre_processing_image ...")
         orig, canny = step_1_pre_processing_image(dest_file)
+        
+        logger.error("step_2_location_table ...")
         table       = step_2_location_table(orig, canny)
+        
+        logger.error("step_3_find_text_lines ...")
         text_blocks = step_3_find_text_lines(table, name)
+
+        logger.error("step_4_read_keyword_and_value ...")
         areas, ztgz = step_4_read_keyword_and_value(text_blocks, name)
 
         # construct result
