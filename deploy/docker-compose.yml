@@ -25,5 +25,6 @@ services:
       - ../../XinYiRecognition:/usr/local/XinYiRecognition
       - ..:/usr/local/xyapi_ws
       - /media/data:/media/data
+      - /var/log/sinyi:/var/log/sinyi
       - ./xyapi.conf:/etc/supervisor/conf.d/xyapi.conf
       - ./chi_xy_hanzi.traineddata:/usr/share/tesseract-ocr/4.00/tessdata/chi_xy_hanzi.traineddata
