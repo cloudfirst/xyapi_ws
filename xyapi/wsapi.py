@@ -22,7 +22,7 @@ def ocr_pdf(file_path):
     ret = {}
     try:    
          # start to process
-        dest_file = getImageFromPDF(full_path)
+        dest_file = getImageFromPDF(file_path)
         orig, canny = step_1_pre_processing_image(dest_file)
         table       = step_2_location_table(orig, canny)
         text_blocks = step_3_find_text_lines(table, name)
