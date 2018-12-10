@@ -66,7 +66,10 @@ def get_data_from_pdf():
         path, fname = os.path.split(full_path)
         name, extension = os.path.splitext(fname)
 
-        if extension == ".pdf" and os.path.exists(full_path):
+        logg.error("start to process %s" % full_path)
+        flag = os.path.exists(full_path)
+        print(flag, " --- ", full_path)
+        if flag and extension == ".pdf" or extension == ".PDF":
            ret = ocr_pdf(full_path, file_name, name)
         else:
             # abort(400, "invalid file name: %s." % file_name)
