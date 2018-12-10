@@ -17,6 +17,8 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile4API
+    depends_on:
+      - sinyi_opencv4
     image: sinyi_api:latest
     container_name: sinyi_api_instance
     expose:
@@ -29,4 +31,10 @@ services:
       - ./xyapi.conf:/etc/supervisor/conf.d/xyapi.conf
       - ./chi_xy_hanzi.traineddata:/usr/share/tesseract-ocr/4.00/tessdata/chi_xy_hanzi.traineddata
       - ./chi_xy_digits.traineddata:/usr/share/tesseract-ocr/4.00/tessdata/chi_xy_digits.traineddata
+  sinyi_opencv4:
+    build:
+      context: ./
+      dockerfile: Dockerfile4OpenCV4
+    image: sinyi_opencv4:latest
+      
       
