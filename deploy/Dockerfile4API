@@ -55,8 +55,8 @@ RUN useradd -m sinobotsinyi
 
 RUN mkdir -p /media/data || true 
 
-RUN mkdir -p /usr/local/xyapi_ws || true && \
-RUN chown -R sinobotsinyi:sinobotsinyi /usr/local/xyapi_ws && \
+RUN mkdir -p /usr/local/xyapi_ws || true 
+RUN chown -R sinobotsinyi:sinobotsinyi /usr/local/xyapi_ws
 RUn chmod 755 -R /usr/local/xyapi_ws
     
 RUN mkdir -p /var/log/sinyi || true
