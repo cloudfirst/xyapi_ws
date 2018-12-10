@@ -56,12 +56,12 @@ RUN useradd -m sinobotsinyi
 RUN mkdir -p /media/data || true 
 
 RUN mkdir -p /usr/local/xyapi_ws || true && \
-    chown -R sinobotsinyi:sinobotsinyi /usr/local/xyapi_ws && \
-    chmod 755 -R /usr/local/xyapi_ws
+RUN chown -R sinobotsinyi:sinobotsinyi /usr/local/xyapi_ws && \
+RUn chmod 755 -R /usr/local/xyapi_ws
     
-RUN mkdir -p /var/log/sinyi || true && \
-    chown -R sinobotsinyi:sinobotsinyi /var/log/sinyi && \
-    chmod 755 -R /var/log/sinyi
+RUN mkdir -p /var/log/sinyi || true
+RUN chown -R sinobotsinyi:sinobotsinyi /var/log/sinyi 
+RUn chmod 755 -R /var/log/sinyi
 
 # Define mountable directories.
 VOLUME ["/etc/supervisor/conf.d"]
