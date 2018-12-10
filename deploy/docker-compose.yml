@@ -28,3 +28,5 @@ services:
       - /var/log/sinyi:/var/log/sinyi
       - ./xyapi.conf:/etc/supervisor/conf.d/xyapi.conf
       - ./chi_xy_hanzi.traineddata:/usr/share/tesseract-ocr/4.00/tessdata/chi_xy_hanzi.traineddata
+      - ./chi_xy_digits.traineddata:/usr/share/tesseract-ocr/4.00/tessdata/chi_xy_digits.traineddata
+      
