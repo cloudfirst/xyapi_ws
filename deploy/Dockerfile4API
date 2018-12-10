@@ -59,7 +59,7 @@ RUN mkdir -p /usr/local/xyapi_ws || true
 RUN chown -R sinobotsinyi:sinobotsinyi /usr/local/xyapi_ws
 RUN chmod 755 -R /usr/local/xyapi_ws
     
-RUN rm -fr /var/log/sinyi
+RUN rm -fr /var/log/sinyi || true
 RUN mkdir -p /var/log/sinyi
 RUN chown -R sinobotsinyi:sinobotsinyi /var/log/sinyi 
 RUN chmod 755 -R /var/log/sinyi
