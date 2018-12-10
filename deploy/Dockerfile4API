@@ -18,6 +18,8 @@ RUN addgroup --gid 1001 sinobot
 RUN useradd -m -G sinobot sinobotsinyi
 
 RUN mkdir -p /media/data || true 
+RUN chown -R sinobotsinyi:sinobotsinyi /media/data 
+RUN chmod 755 /media/data
 
 RUN mkdir -p /usr/local/xyapi_ws || true 
 RUN chown -R sinobotsinyi:sinobotsinyi /usr/local/xyapi_ws
