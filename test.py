@@ -1,24 +1,9 @@
-# coding=UTF-8
-
-import functools, os
-
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for, jsonify
-)
-from werkzeug.exceptions import abort
+import os
 from sinobotocr.cv2_helper import *
 from sinobotocr.tesseract_helper import *
 from sinobotocr.my_pdf2img import *
 
-logger = get_my_logger()
-
-bp = Blueprint('wsapi', __name__, url_prefix='/api/1.0')
-
 BASE_DIR = "/media/data"
-
-@bp.before_app_request
-def load_logged_in_user():
-    pass
 
 def ocr_pdf(file_path, file_name, name):
     ret = {}
@@ -57,26 +42,11 @@ def ocr_pdf(file_path, file_name, name):
 
     return ret
 
-@bp.route('/get/data', methods=['POST'])
-def get_data_from_pdf():
-    if request.method == 'POST':
-        ret = {}
-        file_name = request.form['datafile']
-        full_path = os.path.join(BASE_DIR, file_name) 
-        path, fname = os.path.split(full_path)
-        name, extension = os.path.splitext(fname)
+file_name = "007.pdf"
+full_path = os.path.join(BASE_DIR, file_name) 
+path, fname = os.path.split(full_path)
+name, extension = os.path.splitext(fname)
 
-        if extension == ".pdf" and os.path.exists(full_path):
-           ret = ocr_pdf(full_path, file_name, name)
-        else:
-            # abort(400, "invalid file name: %s." % file_name)
-            # start to process
-            ret['filename']  = file_name
-            ret['heji1']     = ''
-            ret['heji2']     = ''
-            ret['ztgz']      = u""
-            ret['confident'] = 0
-            ret['Status']    = "FAIL"
-            ret['ErrDesc']   = "invalid file name: %s." % file_name
-        
-        return jsonify(ret)
+if extension == ".pdf" and os.path.exists(full_path):
+    ret = ocr_pdf(full_path, file_name, name)
+    print(ret)
