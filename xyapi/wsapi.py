@@ -20,11 +20,8 @@ BASE_DIR = "/media/data"
 def load_logged_in_user():
     pass
 
-def ocr_pdf(file_path):
-    path, fname = os.path.split(full_path)
-    name, extension = os.path.splitext(fname)
+def ocr_pdf(file_path, file_name, name):
     ret = {}
-    
     try:    
         # start to process
         logger.error("Get image from pdf from %s" % file_path)
@@ -66,8 +63,11 @@ def get_data_from_pdf():
         ret = {}
         file_name = request.form['datafile']
         full_path = os.path.join(BASE_DIR, file_name) 
+        path, fname = os.path.split(full_path)
+        name, extension = os.path.splitext(fname)
+
         if extention == ".pdf" and os.path.exists(full_path):
-           ret = ocr_pdf(full_path)
+           ret = ocr_pdf(full_path, file_name, name)
         else:
             # abort(400, "invalid file name: %s." % file_name)
             # start to process
