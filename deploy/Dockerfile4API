@@ -14,7 +14,8 @@ RUN rm -rf /var/lib/apt/lists/* && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
 
 # create USER sinobotsinyi and needed directories
-RUN useradd -m sinobotsinyi
+RUN addgroup --gid 1001 sinobot
+RUN useradd -m -G sinobot sinobotsinyi
 
 RUN mkdir -p /media/data || true 
 
