@@ -1,48 +1,4 @@
-FROM ubuntu:18.04
-
-# install Python3 
-RUN apt-get update \
-  && apt-get install -y python3-pip python3-dev wget \
-  && cd /usr/local/bin \
-  && ln -s /usr/bin/python3 python \
-  && pip3 install --upgrade pip
-
-# create USER sinobot and needed directories
-RUN useradd -m sinobot
-RUN mkdir -p /usr/local/xyapi_ws || true && \
-    mkdir -p /media/data || true && \
-    mkdir -p /var/log/sinyi || true
-RUN chown -R sinobot:sinobot /usr/local/xyapi_ws && \
-    chmod 755 -R /usr/local/xyapi_ws && \
-    chown -R sinobot:sinobot /var/log/sinyi && \
-    chmod 755 -R /var/log/sinyi
-
-# install OpenCV 4.0
-RUN apt-get install -y build-essential cmake unzip pkg-config
-RUN apt-get install -y libjpeg-dev libpng-dev libtiff-dev
-RUN apt-get install -y libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
-RUN apt-get install -y libxvidcore-dev libx264-dev
-RUN apt-get install -y libatlas-base-dev gfortran
-RUN apt-get install -y python3-dev
-RUN cd /tmp && wget -O opencv.zip https://github.com/opencv/opencv/archive/4.0.0.zip
-RUN cd /tmp && wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.0.0.zip
-RUN cd /tmp && unzip opencv.zip && unzip opencv_contrib.zip
-RUN cd /tmp && mv opencv-4.0.0 opencv && mv opencv_contrib-4.0.0 opencv_contrib
-RUN pip install numpy
-RUN mkdir -p /tmp/opencv/build
-RUN cd /tmp/opencv/build && \
-    cmake -D CMAKE_BUILD_TYPE=RELEASE \
-      -D CMAKE_INSTALL_PREFIX=/usr/local \
-      -D INSTALL_PYTHON_EXAMPLES=ON \
-      -D INSTALL_C_EXAMPLES=OFF \
-      -D OPENCV_EXTRA_MODULES_PATH=/tmp/opencv_contrib/modules \
-      -D PYTHON_EXECUTABLE=/usr/local/bin/python \
-      -D BUILD_EXAMPLES=ON .. 
-RUN cd /tmp/opencv/build && make -j4 
-RUN cd /tmp/opencv/build && make install
-RUN cd /tmp/opencv/build && ldconfig
-RUN cd /usr/local/lib/python3.6/dist-packages && \
-    ln -s /usr/local/python/cv2/python-3.6/cv2.cpython-36m-x86_64-linux-gnu.so cv2.so
+FROM sinyi_opencv4:latest
 
 # install Tesseract 4.0
 RUN apt-get install -y tesseract-ocr
@@ -56,6 +12,23 @@ RUN pip install -r requirements.txt
 RUN apt-get install -y supervisor iputils-ping
 RUN rm -rf /var/lib/apt/lists/* && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
+
+# create USER sinobotsinyi and needed directories
+RUN addgroup --gid 1001 sinobot
+RUN useradd -m -G sinobot sinobotsinyi
+
+RUN mkdir -p /media/data || true 
+RUN chown -R sinobotsinyi:sinobotsinyi /media/data 
+RUN chmod 755 /media/data
+
+RUN mkdir -p /usr/local/xyapi_ws || true 
+RUN chown -R sinobotsinyi:sinobotsinyi /usr/local/xyapi_ws
+RUN chmod 755 -R /usr/local/xyapi_ws
+    
+RUN rm -fr /var/log/sinyi || true
+RUN mkdir -p /var/log/sinyi
+RUN chown -R sinobotsinyi:sinobotsinyi /var/log/sinyi 
+RUN chmod 755 -R /var/log/sinyi
 
 # Define mountable directories.
 VOLUME ["/etc/supervisor/conf.d"]
