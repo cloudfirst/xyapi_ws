@@ -1,0 +1,4 @@
+FROM sinyi_opencv4:latest
+
+# install tensorflow 
+RUN pip3 install tensorflow
