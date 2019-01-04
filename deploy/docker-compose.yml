@@ -18,7 +18,7 @@ services:
       context: ./
       dockerfile: Dockerfile4API
     depends_on:
-      - sinyi_opencv4
+      - sinyi_calamari
     image: sinyi_api:latest
     container_name: sinyi_api_instance
     expose:
@@ -36,5 +36,11 @@ services:
       context: ./
       dockerfile: Dockerfile4OpenCV4
     image: sinyi_opencv4:latest
-      
+  sinyi_calamari:
+    build:
+      context: ./
+      dockerfile: Dockerfile4Calamari
+    depends_on:
+      - sinyi_opencv4
+    image: sinyi_sinyi_calamari:latest
       
