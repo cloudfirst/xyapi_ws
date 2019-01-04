@@ -31,6 +31,7 @@ services:
       - ./xyapi.conf:/etc/supervisor/conf.d/xyapi.conf
       - ./chi_xy_hanzi.traineddata:/usr/share/tesseract-ocr/4.00/tessdata/chi_xy_hanzi.traineddata
       - ./chi_xy_digits.traineddata:/usr/share/tesseract-ocr/4.00/tessdata/chi_xy_digits.traineddata
+      - ./calamari-model:/usr/share/calamari/model
   sinyi_opencv4:
     build:
       context: ./
@@ -42,5 +43,5 @@ services:
       dockerfile: Dockerfile4Calamari
     depends_on:
       - sinyi_opencv4
-    image: sinyi_sinyi_calamari:latest
+    image: sinyi_calamari:latest
       
