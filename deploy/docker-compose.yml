@@ -25,6 +25,7 @@ services:
       - "5000"
     volumes:
       - ../../XinYiRecognition:/usr/local/XinYiRecognition
+      - ../../myctpn/sinobot_ctpn:/usr/local/myctpn/sinobot_ctpn
       - ..:/usr/local/xyapi_ws
       - /media/data:/media/data
       - /var/log/sinyi:/var/log/sinyi
@@ -32,6 +33,7 @@ services:
       - ./chi_xy_hanzi.traineddata:/usr/share/tesseract-ocr/4.00/tessdata/chi_xy_hanzi.traineddata
       - ./chi_xy_digits.traineddata:/usr/share/tesseract-ocr/4.00/tessdata/chi_xy_digits.traineddata
       - ./calamari-model:/usr/share/calamari/model
+      - ./ctpn-model:/usr/share/:/usr/share/ctpn/model
   sinyi_opencv4:
     build:
       context: ./
