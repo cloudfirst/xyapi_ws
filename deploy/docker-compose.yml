@@ -33,7 +33,7 @@ services:
       - ./chi_xy_hanzi.traineddata:/usr/share/tesseract-ocr/4.00/tessdata/chi_xy_hanzi.traineddata
       - ./chi_xy_digits.traineddata:/usr/share/tesseract-ocr/4.00/tessdata/chi_xy_digits.traineddata
       - ./calamari-model:/usr/share/calamari/model
-      - ./ctpn-model:/usr/share/:/usr/share/ctpn/model
+      - ./ctpn-model:/usr/share/ctpn/model
   sinyi_opencv4:
     build:
       context: ./
