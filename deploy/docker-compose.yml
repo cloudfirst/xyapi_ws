@@ -25,7 +25,7 @@ services:
       - "5000"
     volumes:
       - ../../XinYiRecognition:/usr/local/XinYiRecognition
-      - ../../myctpn/sinobot_ctpn:/usr/local/myctpn/sinobot_ctpn
+      - ../../myctpn:/usr/local/myctpn
       - ..:/usr/local/xyapi_ws
       - /media/data:/media/data
       - /var/log/sinyi:/var/log/sinyi
