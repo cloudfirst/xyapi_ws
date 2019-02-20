@@ -9,6 +9,7 @@ from werkzeug.exceptions import abort
 from sinobotocr.cv2_helper import *
 from sinobotocr.tesseract_helper import *
 from sinobotocr.my_pdf2img import *
+from sinobotocr.cv2_helper2 import *
 
 logger = get_my_logger()
 
@@ -34,10 +35,10 @@ def ocr_pdf(file_path, file_name, name):
         table       = step_2_location_table(orig, canny)
         
         logger.error("step_3_find_text_lines ...")
-        text_blocks = step_3_find_text_lines(table, name)
+        text_blocks = step_3_find_text_lines_v2(table, name)
 
         logger.error("step_4_read_keyword_and_value ...")
-        areas, ztgz = step_4_read_keyword_and_value(text_blocks, name)
+        areas, ztgz = step_4_read_keyword_and_value_v2(text_blocks, name)
 
         # construct result
         ret['filename']  = file_name
