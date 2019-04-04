@@ -22,11 +22,8 @@ def load_logged_in_user():
     pass
 
 def make_unicode(input):
-    if type(input) != unicode:
-        input =  input.decode('utf-8')
-        return input
-    else:
-        return input
+    input =  input.encode('utf-8')
+    return input
 
 def ocr_pdf(file_path, file_name, name):
     ret = {}
@@ -55,7 +52,7 @@ def ocr_pdf(file_path, file_name, name):
         else:
             ret['heji1'] = "0.0"
             ret['heji2'] = "0.0"
-        ret['ztgz']      = make_unicode(ztgz)
+        ret['ztgz']      = ztgz
         ret['confident'] = float('%.2f' % (confidence * 100 ))
         ret['Status']    = "OK"
         ret['ErrDesc']   = ""
@@ -77,7 +74,7 @@ def get_data_from_pdf():
         logger.error("start to process %s" % full_path)
         flag = os.path.exists(full_path)
         if flag and extension == ".pdf" or extension == ".PDF":
-           ret = ocr_pdf(full_path, file_name, name)
+            ret = ocr_pdf(full_path, file_name, name)
         else:
             # abort(400, "invalid file name: %s." % file_name)
             # start to process
@@ -88,5 +85,5 @@ def get_data_from_pdf():
             ret['confident'] = 0
             ret['Status']    = "FAIL"
             ret['ErrDesc']   = "invalid file name: %s." % file_name
-        
+       
         return jsonify(ret)
