@@ -38,7 +38,7 @@ def ocr_pdf(file_path, file_name, name):
         text_blocks = step_3_find_text_lines_v2(table, name)
 
         logger.error("step_4_read_keyword_and_value ...")
-        areas, ztgz, confidence = step_4_read_keyword_and_value_v2(text_blocks, filename)
+        areas, ztgz, confidence = step_4_read_keyword_and_value_v2(text_blocks, name)
 
         # construct result
         ret['filename']  = file_name
