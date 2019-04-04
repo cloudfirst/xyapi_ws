@@ -8,3 +8,4 @@ pymupdf
 pdf2image
 Pillow
 pytesseract
+python-Levenshtein
