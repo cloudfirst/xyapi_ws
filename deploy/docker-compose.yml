@@ -18,23 +18,32 @@ services:
       context: ./
       dockerfile: Dockerfile4API
     depends_on:
-      - sinyi_opencv4
+      - sinyi_calamari
     image: sinyi_api:latest
     container_name: sinyi_api_instance
     expose:
       - "5000"
     volumes:
       - ../../XinYiRecognition:/usr/local/XinYiRecognition
+      - ../../myctpn:/usr/local/myctpn
       - ..:/usr/local/xyapi_ws
       - /media/data:/media/data
       - /var/log/sinyi:/var/log/sinyi
       - ./xyapi.conf:/etc/supervisor/conf.d/xyapi.conf
       - ./chi_xy_hanzi.traineddata:/usr/share/tesseract-ocr/4.00/tessdata/chi_xy_hanzi.traineddata
       - ./chi_xy_digits.traineddata:/usr/share/tesseract-ocr/4.00/tessdata/chi_xy_digits.traineddata
+      - ./calamari-model:/usr/share/calamari/model
+      - ./ctpn-model:/usr/share/ctpn/model
   sinyi_opencv4:
     build:
       context: ./
       dockerfile: Dockerfile4OpenCV4
     image: sinyi_opencv4:latest
-      
+  sinyi_calamari:
+    build:
+      context: ./
+      dockerfile: Dockerfile4Calamari
+    depends_on:
+      - sinyi_opencv4
+    image: sinyi_calamari:latest
       
