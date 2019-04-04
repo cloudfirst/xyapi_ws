@@ -1,9 +1,9 @@
 FROM sinyi_opencv4:latest
 
-RUN pip3 install tensorflow 
+RUN pip3 install tensorflow==1.12.0
 
 RUN mkdir -p /usr/share/calamari/models/
 RUN cd /tmp && wget https://raw.githubusercontent.com/cloudfirst/xyapi_ws/m3/calamari_src/calamari.tar.gz
 RUN cd /tmp && tar zxvf calamari.tar.gz
-RUN cd /tmp/calamari-master && python3 setup.py install
+RUN cd /tmp/calamari && python3 setup.py install
 

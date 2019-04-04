@@ -21,6 +21,10 @@ BASE_DIR = "/media/data"
 def load_logged_in_user():
     pass
 
+def make_unicode(input):
+    input =  input.encode('utf-8')
+    return input
+
 def ocr_pdf(file_path, file_name, name):
     ret = {}
     try:    
@@ -38,7 +42,7 @@ def ocr_pdf(file_path, file_name, name):
         text_blocks = step_3_find_text_lines_v2(table, name)
 
         logger.error("step_4_read_keyword_and_value ...")
-        areas, ztgz, confidence = step_4_read_keyword_and_value_v2(text_blocks, filename)
+        areas, ztgz, confidence = step_4_read_keyword_and_value_v2(text_blocks, name)
 
         # construct result
         ret['filename']  = file_name
@@ -70,7 +74,7 @@ def get_data_from_pdf():
         logger.error("start to process %s" % full_path)
         flag = os.path.exists(full_path)
         if flag and extension == ".pdf" or extension == ".PDF":
-           ret = ocr_pdf(full_path, file_name, name)
+            ret = ocr_pdf(full_path, file_name, name)
         else:
             # abort(400, "invalid file name: %s." % file_name)
             # start to process
@@ -81,5 +85,5 @@ def get_data_from_pdf():
             ret['confident'] = 0
             ret['Status']    = "FAIL"
             ret['ErrDesc']   = "invalid file name: %s." % file_name
-        
+       
         return jsonify(ret)
