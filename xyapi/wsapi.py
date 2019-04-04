@@ -21,6 +21,13 @@ BASE_DIR = "/media/data"
 def load_logged_in_user():
     pass
 
+def make_unicode(input):
+    if type(input) != unicode:
+        input =  input.decode('utf-8')
+        return input
+    else:
+        return input
+
 def ocr_pdf(file_path, file_name, name):
     ret = {}
     try:    
@@ -48,7 +55,7 @@ def ocr_pdf(file_path, file_name, name):
         else:
             ret['heji1'] = "0.0"
             ret['heji2'] = "0.0"
-        ret['ztgz']      = ztgz
+        ret['ztgz']      = make_unicode(ztgz)
         ret['confident'] = float('%.2f' % (confidence * 100 ))
         ret['Status']    = "OK"
         ret['ErrDesc']   = ""
