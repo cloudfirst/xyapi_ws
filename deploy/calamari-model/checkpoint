@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/zm/src/imodel/model_00015834.ckpt"
+all_model_checkpoint_paths: "/home/zm/src/imodel/model_00015834.ckpt"
