@@ -556,13 +556,8 @@
       ]
     },
     "dataPreprocessor": {
-      "type": "MULTI_NORMALIZER",
-      "children": [
-        {
-          "lineHeight": 48,
-          "pad": 16
-        }
-      ]
+      "lineHeight": 48,
+      "pad": 16
     },
     "textPreprocessor": {
       "type": "MULTI_NORMALIZER",
